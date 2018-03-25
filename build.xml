@@ -80,7 +80,7 @@
 -->
 
     <!-- Deploys the Application to Tomcat -->
-    <target name="deploy" depends="war, tomcat-clean">
+<!--    <target name="deploy" depends="war, tomcat-clean">
         <copy file="${jar.dest}/${app.name}.war"
             tofile="${tomcat.webapps}/${app.name}.war" />
     </target>
@@ -92,5 +92,5 @@
                 destdir="docs/api">
         </javadoc>
     </target>
-
+-->
 </project>
