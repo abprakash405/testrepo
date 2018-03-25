@@ -1,4 +1,4 @@
-<project name="soms" default="deploy" basedir="C:\Users\Kishore\.jenkins\workspace\devtools\devops-flow\trunk">
+<project name="soms" default="deploy" basedir=".">
 
     <description>Build Script to build the soms Project</description>
 
