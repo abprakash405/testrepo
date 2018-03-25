@@ -1,7 +1,7 @@
 <project name="soms" default="deploy" basedir=".">
 
     <description>Build Script to build the soms Project</description>
-
+#ignore
     <property file="build.properties"/>
 
     <path id="build.classpath">
