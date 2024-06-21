@@ -15,7 +15,7 @@ jobs:
       - name: Generate output
         id: generate_output
         run: |
-          echo "some output1" > output.txt
+          echo "some output" > output.txt
 
       - name: Upload output as artifact
         uses: actions/upload-artifact@v3
