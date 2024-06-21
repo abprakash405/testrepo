@@ -16,9 +16,12 @@ jobs:
         id: generate_output
         run: |
           echo "CRNUMBER=12345" > crnumber.txt
+          echo "CRNUMBER=12345" >> $GITHUB_ENV
 
-      - name: Upload CRNUMBER as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: crnumber
-          path: crnumber.txt
+      - name: Trigger Workflow 2
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/dispatches \
+            -d '{"event_type":"trigger_workflow_2","client_payload":{"crnumber":"${{ env.CRNUMBER }}"}}'
