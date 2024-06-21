@@ -1,14 +1,25 @@
 name: Workflow 2
 
 on:
-  workflow_dispatch: {}
+  workflow_run:
+    workflows: ["Workflow 1"]
+    types:
+      - completed
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Debugging - List available artifacts for current run
+        run: |
+          echo "Listing artifacts:"
+          curl -s -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts
 
       - name: Download artifact from Workflow 1
         uses: actions/download-artifact@v3
@@ -16,7 +27,7 @@ jobs:
           name: workflow1-output
           path: .
 
-      - name: List files in the current directory
+      - name: Debugging - List files in the current directory
         run: |
           ls -al
 
