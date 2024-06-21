@@ -3,6 +3,8 @@ name: Workflow 2
 on:
   repository_dispatch:
     types: [trigger_workflow_2]
+  schedule:
+    - cron: '*/5 * * * *' # This runs every 5 minutes
 
 jobs:
   build:
@@ -11,6 +13,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set CRNUMBER
+        id: set_crnumber
+        run: |
+          if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
+            echo "CRNUMBER=${{ github.event.client_payload.crnumber }}" >> $GITHUB_ENV
+            echo "::set-output name=crnumber::${{ github.event.client_payload.crnumber }}"
+          else
+            echo "CRNUMBER=${{ secrets.CRNUMBER }}" >> $GITHUB_ENV
+
       - name: Print CRNUMBER
         run: |
-          echo "CRNUMBER from Workflow 1: ${{ github.event.client_payload.crnumber }}"
+          echo "CRNUMBER from trigger: ${{ env.CRNUMBER }}"
+
+      - name: Save CRNUMBER to GitHub Secrets
+        if: ${{ github.event_name == 'repository_dispatch' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "::add-mask::${{ env.CRNUMBER }}"
+          echo "${{ env.CRNUMBER }}" | gh secret set CRNUMBER -b -
