@@ -14,5 +14,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Debug Output
-        run: echo "CRNUMBER from Workflow 1: ${{ github.event.workflow_run.outputs.build.crnumber }}"
+      - name: Download CRNUMBER artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: crnumber
+
+      - name: Read CRNUMBER
+        id: read_crnumber
+        run: |
+          CRNUMBER=$(cat crnumber.txt)
+          echo "CRNUMBER=$CRNUMBER" >> $GITHUB_ENV
+
+      - name: Print CRNUMBER
+        run: |
+          echo "CRNUMBER from Workflow 1: ${{ env.CRNUMBER }}"
