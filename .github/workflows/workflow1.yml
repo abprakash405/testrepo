@@ -8,22 +8,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      crnumber: ${{ steps.generate_output.outputs.crnumber }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Generate output
+      - name: Generate CRNUMBER
         id: generate_output
         run: |
-          echo "some output" > output.txt
-
-      - name: Upload output as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: workflow1-output
-          path: output.txt
-
-      - name: List uploaded artifacts for debugging
-        run: |
-          echo "Artifacts in current workflow:"
-          ls -al
+          echo "CRNUMBER=12345" >> $GITHUB_ENV
+          echo "::set-output name=crnumber::12345"
