@@ -15,10 +15,10 @@ jobs:
       - name: Generate CRNUMBER
         id: generate_output
         run: |
-          echo "CRNUMBER=12345" >> $GITHUB_ENV
-          echo "name=crnumber 12345"
+          echo "CRNUMBER=12345" > crnumber.txt
 
-      - name: Debug Outputs
-        run: echo "CRNUMBER is set to ${{ steps.generate_output.outputs.crnumber }}"
-    outputs:
-      crnumber: ${{ steps.generate_output.outputs.crnumber }}
+      - name: Upload CRNUMBER as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: crnumber
+          path: crnumber.txt
