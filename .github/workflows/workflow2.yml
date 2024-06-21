@@ -1,30 +1,16 @@
 name: Workflow 2
 
 on:
-  workflow_run:
-    workflows: ["Workflow 1"]
-    types:
-      - completed
+  repository_dispatch:
+    types: [trigger_workflow_2]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Download CRNUMBER artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: crnumber
-
-      - name: Read CRNUMBER
-        id: read_crnumber
-        run: |
-          CRNUMBER=$(cat crnumber.txt)
-          echo "CRNUMBER=$CRNUMBER" >> $GITHUB_ENV
-
       - name: Print CRNUMBER
         run: |
-          echo "CRNUMBER from Workflow 1: ${{ env.CRNUMBER }}"
+          echo "CRNUMBER from Workflow 1: ${{ github.event.client_payload.crnumber }}"
