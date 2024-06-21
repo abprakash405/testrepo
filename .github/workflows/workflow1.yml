@@ -1,5 +1,5 @@
 name: Workflow 1
-#df
+
 on:
   push:
     branches:
@@ -15,7 +15,6 @@ jobs:
       - name: Generate CRNUMBER
         id: generate_output
         run: |
-          echo "CRNUMBER=12345" > crnumber.txt
           echo "CRNUMBER=12345" >> $GITHUB_ENV
 
       - name: Trigger Workflow 2
