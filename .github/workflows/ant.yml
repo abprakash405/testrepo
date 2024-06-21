@@ -16,16 +16,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-
-    - name: Secret output
-      # You may pin to the exact commit or the version.
-      # uses: cloudposse/github-action-secret-outputs@60479d3a8f6726504d00a65d3cf4226c1ae8c661
-      uses: cloudposse/github-action-secret-outputs@0.1.1
-      with:
-        # Operation to perform (encode or decode)
- 
-        # Input data
-        in: abcd
-        # Secret to encrypt/decrypt data
-        secret: abcd
+    
+    - name: hello
+      run: |
+        echo "hello world"
           
