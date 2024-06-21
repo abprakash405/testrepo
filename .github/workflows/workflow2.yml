@@ -14,23 +14,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Debugging - List available artifacts for current run
+      - name: Use CRNUMBER from Workflow 1
         run: |
-          echo "Listing artifacts:"
-          curl -s -H "Accept: application/vnd.github.v3+json" \
-          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/repos/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts
-
-      - name: Download artifact from Workflow 1
-        uses: actions/download-artifact@v3
-        with:
-          name: workflow1-output
-          path: .
-
-      - name: Debugging - List files in the current directory
-        run: |
-          ls -al
-
-      - name: Use the output from Workflow 1
-        run: |
-          cat output.txt
+          echo "CRNUMBER from Workflow 1: ${{ github.event.workflow_run.outputs.crnumber }}"
