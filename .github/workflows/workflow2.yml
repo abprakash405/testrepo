@@ -3,6 +3,8 @@ name: Workflow 2
 on:
   repository_dispatch:
     types: [trigger_workflow_2]
+  schedule:
+    - cron: '*/5 * * * *' # This runs every 5 minutes
 
 jobs:
   build:
