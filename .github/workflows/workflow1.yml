@@ -22,17 +22,3 @@ jobs:
         with:
           name: workflow1-output
           path: output.txt
-
-      - name: Trigger Workflow 2
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const workflow = await github.actions.listRepoWorkflows({
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            });
-            const workflowId = workflow.data.workflows.find(w => w.name === "Workflow 2").id;
-            await github.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id
