@@ -22,3 +22,8 @@ jobs:
         with:
           name: workflow1-output
           path: output.txt
+
+      - name: List uploaded artifacts for debugging
+        run: |
+          echo "Artifacts in current workflow:"
+          ls -al
