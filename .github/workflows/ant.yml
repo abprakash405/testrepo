@@ -1,23 +1,24 @@
-# This workflow will build a Java project with Ant
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-ant
-
-name: Java CI
+name: Workflow 1
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches:
+      - main
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: hello
-      run: |
-        echo "hello world"
-          
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Generate output
+        id: generate_output
+        run: |
+          echo "some output" > output.txt
+
+      - name: Upload output as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: workflow1-output
+          path: output.txt
