@@ -14,6 +14,5 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Use CRNUMBER from Workflow 1
-        run: |
-          echo "CRNUMBER from Workflow 1: ${{ github.event.workflow_run.outputs.build.crnumber }}"
+      - name: Debug Output
+        run: echo "CRNUMBER from Workflow 1: ${{ github.event.workflow_run.outputs.build.crnumber }}"
