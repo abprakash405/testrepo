@@ -18,18 +18,16 @@ jobs:
         run: |
           echo "CRNUMBER=12345" > crnumber.txt
           echo "CRNUMBER=12345" >> $GITHUB_ENV
-      - name: Set GitHub secret
-        env:
-          CRNUMBER: ${{ env.CRNUMBER }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate CRNUMBER
+        id: generate_output1
         run: |
-          echo "::add-mask::$CRNUMBER"
-          echo "{\"CRNUMBER\":\"$CRNUMBER\"}" > payload.json
-          curl -X PUT -H "Authorization: token $GITHUB_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d @payload.json \
-            https://api.github.com/repos/${{ github.repository }}/actions/secrets/CRNUMBER
+          echo "CRNUMBER=12345" > crnumber.txt
 
+      - name: Cache CRNUMBER
+        uses: actions/cache@v2
+        with:
+          path: crnumber.txt
+          key: crnumber-key
       - name: Trigger Workflow 2
         run: |
           curl -X POST \
