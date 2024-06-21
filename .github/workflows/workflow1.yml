@@ -17,7 +17,12 @@ jobs:
         run: |
           echo "CRNUMBER=12345" > crnumber.txt
           echo "CRNUMBER=12345" >> $GITHUB_ENV
-
+      - name: Save CRNUMBER to GitHub Secrets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CRNUMBER: ${{ env.CRNUMBER }}
+        run: |
+          echo "::add-mask::$CRNUMBER"
       - name: Trigger Workflow 2
         run: |
           curl -X POST \
