@@ -15,3 +15,5 @@ jobs:
         run: |
           echo "CRNUMBER from Workflow 1: ${{ github.event.client_payload.crnumber }}"
           echo "cr number from echo ${{ env.CRNUMBER }}"
+        env:
+          CRNUMBER: "${{ env.CRNUMBER }}"
