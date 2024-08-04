@@ -6,8 +6,8 @@ on:
       - master
   repository_dispatch:
     types: [trigger_workflow_2]
-  schedule:
-    - cron: '*/5 * * * *'
+  #schedule:
+    #- cron: '*/5 * * * *'
 
 jobs:
   build:
