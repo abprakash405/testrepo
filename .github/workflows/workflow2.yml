@@ -15,7 +15,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Download CRNUMBER artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: crnumber-artifact
 
+      - name: Use CRNUMBER
+        run: |
+          CRNUMBER=$(cat crnumber.txt)
+          echo "CRNUMBER from artifact: $CRNUMBER"
       - name: Print CRNUMBER
         run: |
           echo "CRNUMBER from Workflow 1: ${{ github.event.client_payload.crnumber }}"
