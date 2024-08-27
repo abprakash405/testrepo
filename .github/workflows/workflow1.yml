@@ -19,7 +19,11 @@ jobs:
           echo "CRNUMBER=12345" > crnumber.txt
           echo "CRNUMBER=12345" >> $GITHUB_ENV
           echo ${{ env.CRNUMBER }}
-      
+      - name: Upload CRNUMBER as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: crnumber-artifact
+          path: crnumber.txt
       - name: Trigger Workflow 2
         run: |
           curl -X POST \
