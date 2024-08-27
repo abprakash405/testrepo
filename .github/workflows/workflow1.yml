@@ -18,6 +18,7 @@ jobs:
         run: |
           echo "CRNUMBER=12345" > crnumber.txt
           echo "CRNUMBER=12345" >> $GITHUB_ENV
+          echo ${{ env.CRNUMBER }}
       
       - name: Trigger Workflow 2
         run: |
